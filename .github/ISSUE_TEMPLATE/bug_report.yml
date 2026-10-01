@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a wrong or unexpected verification result
+title: "[bug] "
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Verifier version
+      description: Output of `v7 --version`
+      placeholder: v7 7.0.0 (trial version)
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: e.g. Ubuntu 24.04 x86-64, library versions if relevant
+      placeholder: Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      description: The full v7 command and the folder it runs in
+      placeholder: |
+        cd benchmarks/sequential
+        v7 --checks=assertion foo.c
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+      description: What you expected (SAFE/UNSAFE) and what you got, with console output
+      placeholder: Expected UNSAFE, got ALL CHECKS PROVEN ...
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: Paste the smallest C program that shows the problem, or attach files + result bundle (--report=DIR)
+      render: c
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submit checks
+      options:
+        - label: I ran `sha256sum -c CHECKSUMS.txt` and the bundle is intact
+        - label: I read the Tutorial troubleshooting section and README.md
+        - label: I am not sharing licence passwords or private host data

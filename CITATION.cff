@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: Giolit Program Verifier
+version: 7.0.0
+date-released: 2026-10-01
+abstract: Mathematical proof that C code is free of run-time errors — or the
+  exact input that makes it fail. Verifier, C++ SDK, benchmarks and result
+  evidence.
+authors:
+  - name: Giolit Labs
+    address: Ramavarmapuram P.O., Thrissur, Kerala, India
+    website: https://www.giolit.com
+    email: business.giolitlabs@gmail.com
+repository-code: https://github.com/Giolit-Labs/Giolit-Verifier
+license: SEE LICENSE.md
+keywords:
+  - software-verification
+  - formal-methods
+  - C
+  - model-checking
+  - SV-COMP
+  - Hoare-logic

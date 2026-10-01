@@ -1,0 +1,23 @@
+name: Question
+description: Ask about usage, results, SDK or licensing
+title: "[question] "
+labels: [question]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to verify? Include the command and a minimal example if possible.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Verifier version (`v7 --version`)
+      placeholder: v7 7.0.0 (trial version)
+  - type: checkboxes
+    id: commercial
+    attributes:
+      label: Licensing
+      options:
+        - label: My question is about purchasing, activation or renewals (otherwise email business.giolitlabs@gmail.com for quotes)

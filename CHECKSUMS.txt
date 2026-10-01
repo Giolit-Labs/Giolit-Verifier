@@ -1,0 +1,1 @@
+e9d52eeaf1a2747a41c6d0b70fd7dc175f588909af7b894aa6cf0e8de41c8480  giolit-verifier-7.0.0-trial.tar.gz

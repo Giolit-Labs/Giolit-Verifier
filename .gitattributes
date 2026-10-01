@@ -1,0 +1,5 @@
+# Bundle archive: track in git, don't diff.
+*.tar.gz binary
+# Previewable docs (mirrors documents/ inside the bundle): don't diff PDFs.
+docs/*.pdf binary diff=pdf
+docs/*.png binary

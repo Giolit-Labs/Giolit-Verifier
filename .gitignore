@@ -1,0 +1,44 @@
+# The distributable bundle IS hosted in this repo (see CHECKSUMS.txt).
+# Do not ignore giolit-verifier-*.tar.gz.
+
+# Verifier report / proof output produced locally
+out/
+*_report/
+certificate.pdf
+counterexample-report.pdf
+results.sarif
+results.json
+proof.json
+certificate.json
+verifier-output.txt
+*.log
+*.aux
+*.synctex.gz
+.keep-tex/
+
+# SDK build products
+code/sdk-example/verify_file
+code/sdk-example/unit_check
+code/sdk-example/certify
+code/sdk-example/license_info
+code/sdk-example/ci_gate
+sdk-example/verify_file
+sdk-example/unit_check
+sdk-example/certify
+sdk-example/license_info
+sdk-example/ci_gate
+*.o
+*.a
+
+# Local installs and licence state (never commit)
+.giolit/
+~/.giolit/
+giolit-out/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.vscode/
+.idea/

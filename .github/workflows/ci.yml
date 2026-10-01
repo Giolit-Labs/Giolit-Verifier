@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify bundle checksum
+        run: sha256sum -c CHECKSUMS.txt
+
+      - name: Extract bundle
+        run: tar xzf giolit-verifier-7.0.0-trial.tar.gz
+
+      - name: Check bundle integrity
+        run: |
+          cd giolit-verifier-7.0.0-trial
+          sha256sum -c SHA256SUMS
+
+      - name: Check docs mirror is in sync
+        run: |
+          for f in Tutorial.pdf Product-Overview.pdf README.md README.pdf License-Terms.md License-Terms.pdf; do
+            cmp -s "docs/$f" "giolit-verifier-7.0.0-trial/documents/$f" || { echo "docs/$f differs from bundle documents/$f"; exit 1; }
+          done
+          cmp -s docs/logo.png giolit-verifier-7.0.0-trial/code/share/giolit/logo.png || { echo "docs/logo.png differs from bundle code/share/giolit/logo.png"; exit 1; }
+          echo "docs/ matches bundle"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libllvm18 libclang-cpp18 libclang-common-18-dev libc6-dev libssl3 g++
+
+      - name: Install verifier (user prefix)
+        run: |
+          ./giolit-verifier-7.0.0-trial/code/install.sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Version and licence (uses no run)
+        run: |
+          v7 --version
+          v7 --license || true
+
+      - name: Self-test examples
+        run: |
+          cp -r ~/.local/giolit-v7/share/giolit/examples /tmp/giolit-examples
+          cd /tmp/giolit-examples
+          v7 --timeout=60 01_loop_invariant.c
+          echo "--- expecting violation (exit 1) ---"
+          set +e
+          v7 --timeout=60 02_loop_bug.c
+          rc=$?
+          set -e
+          test "$rc" -eq 1
+
+      - name: SARIF smoke test
+        run: |
+          cd /tmp/giolit-examples
+          v7 --checks=assertion --sarif=/tmp/results.sarif 01_loop_invariant.c
+          test -f /tmp/results.sarif
+
+      - name: Build SDK examples
+        run: |
+          cd ~/.local/giolit-v7/sdk-example
+          ./build.sh
+          ./verify_file programs/speed_limiter.c
+          echo "--- expecting violation (exit 1) ---"
+          set +e
+          ./verify_file programs/speed_limiter.c -DBUG
+          rc=$?
+          set -e
+          test "$rc" -eq 1
+          ./license_info --checks=assertion,arithmetic
+
+      - name: Upload SARIF (example)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-example
+          path: /tmp/results.sarif

@@ -23,4 +23,4 @@ Initial public repository release (`giolit-verifier-7.0.0-trial`).
 - Trial licence: 1000 runs within 50 days; build validity 100 days.
   Contact `business.giolitlabs@gmail.com` / `www.giolit.com` for paid licences.
 
-[7.0.0]: https://github.com/Giolit-Labs/Giolit-Verifier/releases/tag/v7.0.0-trial
+[7.0.0]: https://github.com/Giolit-Labs/Giolit-Verifier/releases/tag/v7.0.0

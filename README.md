@@ -42,7 +42,7 @@ shasum -a 256 -c CHECKSUMS.txt   # macOS
 sha256sum -c CHECKSUMS.txt       # Linux
 ```
 
-The same two files are attached to the [`v7.0.0-trial` Release](https://github.com/Giolit-Labs/Giolit-Verifier/releases/tag/v7.0.0-trial) for download without cloning.
+The same two files are attached to the [`v7.0.0` Release](https://github.com/Giolit-Labs/Giolit-Verifier/releases/tag/v7.0.0) for download without cloning.
 
 ## Documents (preview without downloading the zip)
 
